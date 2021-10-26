@@ -44,4 +44,37 @@ router.post('/', (req, res) => {
   });
 });
 
+// segun la convencion, con patch se envia data de forma parcial para actualizar un producto
+router.patch('/:id', (req, res) => {
+  const {id} = req.params;
+  const body = req.body;
+
+  res.json({
+    message: 'update',
+    data: body,
+    id
+  });
+});
+
+// segun la convencion, con put se envia todo los campos del objeto que se quiere actualizar
+router.put('/:id', (req, res) => {
+  const {id} = req.params;
+  const body = req.body;
+
+  res.json({
+    message: 'update',
+    data: body,
+    id
+  });
+});
+
+router.delete('/:id', (req, res) => {
+  const {id} = req.params;
+
+  res.json({
+    message: 'deleted',
+    id
+  });
+});
+
 module.exports = router;
