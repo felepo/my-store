@@ -8,7 +8,7 @@ const othersRouter = require('./others.router');
 function routerApi(app) {
   const router =  express.Router();
 
-  // add /api/v1 prefix
+  // agregando el prefijo /api/v1
   app.use('/api/v1', router);
 
   router.use('/products', productsRouter);
