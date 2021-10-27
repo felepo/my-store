@@ -1,47 +1,26 @@
 const express = require('express');
-const faker = require('faker');
-
 const router = express.Router();
 
-router.get('/', (req, res) => {
-  const { size } = req.query;
-  const limit = parseInt(size) || 10;
-  const products = [];
+const ProductsService = require('../services/products.service');
+const service = new ProductsService();
 
-  Array(limit)
-    .fill(0)
-    .forEach(() => {
-      products.push({
-        name: faker.commerce.productName(),
-        price: parseInt(faker.commerce.price(), 10),
-        image: faker.image.imageUrl()
-      });
-    });
+router.get('/', (req, res) => {
+  const products = service.find();
 
   res.json(products);
 });
 
 router.get('/filter', (req, res) => {
-  res.send('Yo soy un filter');
+  const product = service.findWithFilter();
+
+  res.send(product);
 });
 
 router.get('/:id', (req, res) => {
   const { id } = req.params;
 
-  if(parseInt(id) === 999) {
-    res.status(404).json({
-      message: 'not found'
-    });
-  } else {
-    res.status(201).json({
-      message: 'success',
-      product: {
-        id,
-        name: 'Product 2',
-        price: 2000
-      }
-    });
-  }
+  const product = service.findOne(id);
+  res.json(product);
 });
 
 router.post('/', (req, res) => {

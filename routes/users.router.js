@@ -1,6 +1,8 @@
 const express = require('express');
-
 const router = express.Router();
+
+const UsersService = require('./../services/users.service');
+const service = new UsersService();
 
 // Enpoint usando Query Params
 router.get('/', (req, res) => {
@@ -8,12 +10,11 @@ router.get('/', (req, res) => {
   const { limit, offset } = req.query;
 
   if( limit && offset ) {
-    res.json({
-      limit,
-      offset
-    });
+    const user = service.find({limit, offset});
+
+    res.json(user);
   } else {
-    res.send('No existen query strings params');
+    res.send('No existen query strings params correctos');
   }
 });
 
