@@ -41,6 +41,7 @@ class ProductsService {
   }
 
   async findOne(id) {
+    const name = this.getTotal(); // Generando error a proposito
     return this.products.find(item => item.id === id);
   }
 
