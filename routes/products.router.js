@@ -38,7 +38,7 @@ router.post('/', async (req, res) => {
 });
 
 // segun la convencion, con patch se envia data de forma parcial para actualizar un producto
-router.patch('/:id', async (req, res) => {
+router.patch('/:id', async (req, res, next) => {
   try {
     const {id} = req.params;
     const body = req.body;
@@ -50,9 +50,7 @@ router.patch('/:id', async (req, res) => {
       data: product
     });
   } catch (error) {
-    res.status(404).json({
-      message: error.message
-    });
+    next(error);
   }
 });
 
